@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Prompt = require('../models/prompts');
 const { OpenAI } = require('openai');
+const sanitize = require('mongo-sanitize');
 require('dotenv').config()
 
 const openai = new OpenAI({
@@ -21,8 +22,7 @@ router.delete('/delete/:id', async (req, res) => {
 
 
 router.get('/icon', async (req, res) => {
-    const prompt = req.query.prompt;
-    console.log(prompt);
+    const prompt = sanitize(req.query.prompt);
     if (!prompt || prompt === '' || prompt === 'null') {
         res.status(400).json({ error: 'Provide a valid prompt!' });
         return;
