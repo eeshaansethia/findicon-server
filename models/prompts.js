@@ -13,6 +13,14 @@ const promptSchema = new mongoose.Schema({
         type: Array,
         required: true
     },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    name: {
+        type: String,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('Prompt', promptSchema);
